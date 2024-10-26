@@ -14,6 +14,7 @@ import cn.iocoder.yudao.module.system.dal.dataobject.dept.PostDO;
 import cn.iocoder.yudao.module.system.dal.dataobject.permission.RoleDO;
 import cn.iocoder.yudao.module.system.dal.dataobject.social.SocialUserDO;
 import cn.iocoder.yudao.module.system.dal.dataobject.user.AdminUserDO;
+import cn.iocoder.yudao.module.system.dal.dto.AdminUserDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -29,10 +30,27 @@ public interface UserConvert {
         return CollectionUtils.convertList(list, user -> convert(user, deptMap.get(user.getDeptId())));
     }
 
+    default List<UserRespVO> convertList2(List<AdminUserDTO> list, Map<Long, DeptDO> deptMap) {
+        return CollectionUtils.convertList(list, user -> convert2(user, deptMap.get(user.getDeptId())));
+    }
+
     default UserRespVO convert(AdminUserDO user, DeptDO dept) {
         UserRespVO userVO = BeanUtils.toBean(user, UserRespVO.class);
         if (dept != null) {
             userVO.setDeptName(dept.getName());
+        }
+        return userVO;
+    }
+
+    default UserRespVO convert2(AdminUserDTO user, DeptDO dept) {
+        UserRespVO userVO = BeanUtils.toBean(user, UserRespVO.class);
+        if (dept != null) {
+            userVO.setDeptName(dept.getName());
+        }
+        if (!CollectionUtils.isAnyEmpty(user.getRoles())) {
+            for (RoleDO role : user.getRoles()) {
+                userVO.getRoleNames().add(role.getName());
+            }
         }
         return userVO;
     }

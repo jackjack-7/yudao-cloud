@@ -23,12 +23,15 @@ import cn.iocoder.yudao.module.system.controller.admin.user.vo.user.UserSaveReqV
 import cn.iocoder.yudao.module.system.dal.dataobject.dept.DeptDO;
 import cn.iocoder.yudao.module.system.dal.dataobject.dept.UserPostDO;
 import cn.iocoder.yudao.module.system.dal.dataobject.user.AdminUserDO;
+import cn.iocoder.yudao.module.system.dal.dto.AdminUserDTO;
 import cn.iocoder.yudao.module.system.dal.mysql.dept.UserPostMapper;
 import cn.iocoder.yudao.module.system.dal.mysql.user.AdminUserMapper;
 import cn.iocoder.yudao.module.system.service.dept.DeptService;
 import cn.iocoder.yudao.module.system.service.dept.PostService;
 import cn.iocoder.yudao.module.system.service.permission.PermissionService;
 import cn.iocoder.yudao.module.system.service.tenant.TenantService;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.annotations.VisibleForTesting;
 import com.mzt.logapi.context.LogRecordContext;
 import com.mzt.logapi.service.impl.DiffParseFunction;
@@ -273,6 +276,14 @@ public class AdminUserServiceImpl implements AdminUserService {
     @Override
     public PageResult<AdminUserDO> getUserPage(UserPageReqVO reqVO) {
         return userMapper.selectPage(reqVO, getDeptCondition(reqVO.getDeptId()));
+    }
+
+    @Override
+    public PageResult<AdminUserDTO> getUserPageWithRoles(UserPageReqVO reqVO) {
+        // 必须使用 MyBatis Plus 的分页对象
+        IPage<AdminUserDTO> page = new Page<>(reqVO.getPageNo(), reqVO.getPageSize());
+        IPage<AdminUserDTO> result = userMapper.selectPageWithRoles(page, reqVO, getDeptCondition(reqVO.getDeptId()));
+        return new PageResult<>(result.getRecords(), result.getTotal());
     }
 
     @Override

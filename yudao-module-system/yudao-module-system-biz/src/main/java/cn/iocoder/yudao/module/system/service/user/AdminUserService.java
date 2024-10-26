@@ -11,6 +11,7 @@ import cn.iocoder.yudao.module.system.controller.admin.user.vo.user.UserImportRe
 import cn.iocoder.yudao.module.system.controller.admin.user.vo.user.UserPageReqVO;
 import cn.iocoder.yudao.module.system.controller.admin.user.vo.user.UserSaveReqVO;
 import cn.iocoder.yudao.module.system.dal.dataobject.user.AdminUserDO;
+import cn.iocoder.yudao.module.system.dal.dto.AdminUserDTO;
 
 import javax.validation.Valid;
 import java.io.InputStream;
@@ -127,6 +128,14 @@ public interface AdminUserService {
      * @return 分页列表
      */
     PageResult<AdminUserDO> getUserPage(UserPageReqVO reqVO);
+
+    /**
+     * 获得用户分页列表, 并显示用户角色
+     *
+     * @param reqVO 分页条件
+     * @return 分页列表
+     */
+    PageResult<AdminUserDTO> getUserPageWithRoles(UserPageReqVO reqVO);
 
     /**
      * 通过用户 ID 查询用户
