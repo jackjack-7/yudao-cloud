@@ -1,5 +1,6 @@
 package cn.iocoder.yudao.module.industrymap.controller.admin.output;
 
+import io.swagger.v3.oas.annotations.Parameters;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,6 +25,7 @@ import static cn.iocoder.yudao.framework.apilog.core.enums.OperateTypeEnum.*;
 import cn.iocoder.yudao.module.industrymap.controller.admin.output.vo.*;
 import cn.iocoder.yudao.module.industrymap.dal.dataobject.output.OutputDO;
 import cn.iocoder.yudao.module.industrymap.service.output.OutputService;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -92,4 +94,16 @@ public class OutputController {
                         BeanUtils.toBean(list, OutputRespVO.class));
     }
 
+    @PostMapping("/import")
+    @Operation(summary = "导入产量分布 Excel")
+    @Parameters({
+            @Parameter(name = "file", description = "Excel 文件", required = true),
+            @Parameter(name = "updateSupport", description = "是否支持更新，默认为 false", example = "true")
+    })
+    @PreAuthorize("@ss.hasPermission('industrymap:output:import')")
+    public CommonResult<ExcelImportRespVO> importExcel(@RequestParam("file") MultipartFile file,
+                                                      @RequestParam(value = "updateSupport", required = false, defaultValue = "false") Boolean updateSupport) throws Exception {
+        List<OutputImportExcelVO> list = ExcelUtils.read(file, OutputImportExcelVO.class);
+        return success(outputService.importExcelList(list, updateSupport));
+    }
 }

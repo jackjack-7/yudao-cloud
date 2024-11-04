@@ -53,4 +53,13 @@ public interface OutputService {
      */
     PageResult<OutputDO> getOutputPage(OutputPageReqVO pageReqVO);
 
+    /**
+     * excel 批量导入
+     *
+     * @param importDOs     导入实体
+     * @param isUpdateSupport 是否支持更新
+     * @return 导入结果
+     */
+    ExcelImportRespVO importExcelList(List<OutputImportExcelVO> importDOs, boolean isUpdateSupport);
+
 }

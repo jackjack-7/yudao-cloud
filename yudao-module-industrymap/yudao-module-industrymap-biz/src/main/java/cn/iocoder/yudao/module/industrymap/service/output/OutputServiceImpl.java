@@ -1,5 +1,9 @@
 package cn.iocoder.yudao.module.industrymap.service.output;
 
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.iocoder.yudao.framework.common.exception.ServiceException;
+import cn.iocoder.yudao.framework.common.util.validation.ValidationUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,9 +18,11 @@ import cn.iocoder.yudao.framework.common.util.object.BeanUtils;
 import cn.iocoder.yudao.module.industrymap.dal.mysql.output.OutputMapper;
 
 import javax.annotation.Resource;
+import javax.validation.ConstraintViolationException;
 
 import static cn.iocoder.yudao.framework.common.exception.util.ServiceExceptionUtil.exception;
 import static cn.iocoder.yudao.module.industrymap.enums.ErrorCodeConstants.*;
+import static cn.iocoder.yudao.module.system.enums.ErrorCodeConstants.*;
 
 /**
  * 产量分布 Service 实现类
@@ -70,6 +76,33 @@ public class OutputServiceImpl implements OutputService {
     @Override
     public PageResult<OutputDO> getOutputPage(OutputPageReqVO pageReqVO) {
         return outputMapper.selectPage(pageReqVO);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class) // 添加事务，异常则回滚所有导入
+    public ExcelImportRespVO importExcelList(List<OutputImportExcelVO> importDOs, boolean isUpdateSupport) {
+        // 1.1 参数校验
+        if (CollUtil.isEmpty(importDOs)) {
+            throw exception(EXCEL_IMPORT_LIST_IS_EMPTY);
+        }
+
+        // 2. 遍历，逐个创建 or 更新
+        ExcelImportRespVO respVO = ExcelImportRespVO.builder().createLines(new ArrayList<>())
+                .updateLines(new ArrayList<>()).failures(new LinkedHashMap<>()).build();
+        for (int i = 0; i < importDOs.size(); i++) {
+            OutputImportExcelVO importDO = importDOs.get(i);
+            String lineDesc=(i+2)+"";
+            // 2.1.1 校验字段是否符合要求
+            try {
+                ValidationUtils.validate(BeanUtils.toBean(importDO, OutputSaveReqVO.class));
+            } catch (ConstraintViolationException ex){
+                respVO.getFailures().put(lineDesc, ex.getMessage());
+                continue;
+            }
+            outputMapper.insert(BeanUtils.toBean(importDO, OutputDO.class));
+            respVO.getCreateLines().add(lineDesc);
+        }
+        return respVO;
     }
 
 }
