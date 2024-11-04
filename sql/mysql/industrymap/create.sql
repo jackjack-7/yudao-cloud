@@ -5,10 +5,10 @@ DROP TABLE IF EXISTS `industrymap_output`;
 CREATE TABLE `industrymap_output`  (
      `id` bigint NOT NULL AUTO_INCREMENT COMMENT '产量分布ID',
      `mineral_type` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '矿种',
-     `year` varchar(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL  COMMENT '年份',
+     `year_desc` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL  COMMENT '年份',
      `unit` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '单位',
      `data_type` tinyint NULL DEFAULT 0 COMMENT '数据类型',
-     `procedure` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '工艺环节',
+     `procedure_desc` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '工艺环节',
      `country_state` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '国家/地区',
      `output_val` double NULL DEFAULT NULL COMMENT '产量',
      `company` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '重点企业',

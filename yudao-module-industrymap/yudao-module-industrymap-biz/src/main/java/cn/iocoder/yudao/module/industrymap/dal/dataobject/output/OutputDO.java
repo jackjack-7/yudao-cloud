@@ -1,6 +1,5 @@
 package cn.iocoder.yudao.module.industrymap.dal.dataobject.output;
 
-import cn.iocoder.yudao.framework.tenant.core.db.TenantBaseDO;
 import lombok.*;
 import java.util.*;
 import java.time.LocalDateTime;
@@ -11,7 +10,7 @@ import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
 /**
  * 产量分布 DO
  *
- * @author liang
+ * @author yudao
  */
 @TableName("industrymap_output")
 @KeySequence("industrymap_output_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
@@ -21,7 +20,7 @@ import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OutputDO extends TenantBaseDO {
+public class OutputDO extends BaseDO {
 
     /**
      * 产量分布ID
@@ -35,7 +34,7 @@ public class OutputDO extends TenantBaseDO {
     /**
      * 年份
      */
-    private String year;
+    private String yearDesc;
     /**
      * 单位
      */
@@ -47,7 +46,7 @@ public class OutputDO extends TenantBaseDO {
     /**
      * 工艺环节
      */
-    private String procedure;
+    private String procedureDesc;
     /**
      * 国家/地区
      */

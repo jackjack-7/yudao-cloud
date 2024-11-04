@@ -12,7 +12,7 @@ import com.alibaba.excel.annotation.*;
 @ExcelIgnoreUnannotated
 public class OutputRespVO {
 
-    @Schema(description = "产量分布ID", requiredMode = Schema.RequiredMode.REQUIRED, example = "4091")
+    @Schema(description = "产量分布ID", requiredMode = Schema.RequiredMode.REQUIRED, example = "28786")
     @ExcelProperty("产量分布ID")
     private Long id;
 
@@ -22,19 +22,19 @@ public class OutputRespVO {
 
     @Schema(description = "年份", requiredMode = Schema.RequiredMode.REQUIRED)
     @ExcelProperty("年份")
-    private String year;
+    private String yearDesc;
 
     @Schema(description = "单位", requiredMode = Schema.RequiredMode.REQUIRED)
     @ExcelProperty("单位")
     private String unit;
 
-    @Schema(description = "数据类型", example = "1")
+    @Schema(description = "数据类型", example = "2")
     @ExcelProperty("数据类型")
     private Integer dataType;
 
-    @Schema(description = "工艺环节", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(description = "工艺环节")
     @ExcelProperty("工艺环节")
-    private String procedure;
+    private String procedureDesc;
 
     @Schema(description = "国家/地区", requiredMode = Schema.RequiredMode.REQUIRED)
     @ExcelProperty("国家/地区")

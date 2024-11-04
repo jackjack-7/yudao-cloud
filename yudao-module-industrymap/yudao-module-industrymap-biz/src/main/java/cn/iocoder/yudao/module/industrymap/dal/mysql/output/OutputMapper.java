@@ -12,7 +12,7 @@ import cn.iocoder.yudao.module.industrymap.controller.admin.output.vo.*;
 /**
  * 产量分布 Mapper
  *
- * @author liang
+ * @author yudao
  */
 @Mapper
 public interface OutputMapper extends BaseMapperX<OutputDO> {
@@ -20,9 +20,9 @@ public interface OutputMapper extends BaseMapperX<OutputDO> {
     default PageResult<OutputDO> selectPage(OutputPageReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<OutputDO>()
                 .eqIfPresent(OutputDO::getMineralType, reqVO.getMineralType())
-                .eqIfPresent(OutputDO::getYear, reqVO.getYear())
+                .eqIfPresent(OutputDO::getYearDesc, reqVO.getYearDesc())
                 .eqIfPresent(OutputDO::getDataType, reqVO.getDataType())
-                .eqIfPresent(OutputDO::getProcedure, reqVO.getProcedure())
+                .eqIfPresent(OutputDO::getProcedureDesc, reqVO.getProcedureDesc())
                 .eqIfPresent(OutputDO::getCountryState, reqVO.getCountryState())
                 .eqIfPresent(OutputDO::getCompany, reqVO.getCompany())
                 .betweenIfPresent(OutputDO::getCreateTime, reqVO.getCreateTime())

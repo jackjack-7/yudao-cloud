@@ -1,5 +1,6 @@
 package cn.iocoder.yudao.module.industrymap.service.output;
 
+import java.util.*;
 import cn.iocoder.yudao.module.industrymap.controller.admin.output.vo.*;
 import cn.iocoder.yudao.module.industrymap.dal.dataobject.output.OutputDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
@@ -10,7 +11,7 @@ import javax.validation.Valid;
 /**
  * 产量分布 Service 接口
  *
- * @author liang
+ * @author yudao
  */
 public interface OutputService {
 

@@ -72,5 +72,4 @@
             <appender-ref ref="GRPC"/>
         </root>
     </springProfile>
-
 </configuration>

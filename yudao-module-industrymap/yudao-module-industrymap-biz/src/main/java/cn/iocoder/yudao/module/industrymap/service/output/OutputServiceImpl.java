@@ -21,7 +21,7 @@ import static cn.iocoder.yudao.module.industrymap.enums.ErrorCodeConstants.*;
 /**
  * 产量分布 Service 实现类
  *
- * @author liang
+ * @author yudao
  */
 @Service
 @Validated

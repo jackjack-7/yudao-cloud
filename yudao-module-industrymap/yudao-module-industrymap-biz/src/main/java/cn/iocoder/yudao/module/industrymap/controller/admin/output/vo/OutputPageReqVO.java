@@ -15,17 +15,17 @@ import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_
 @ToString(callSuper = true)
 public class OutputPageReqVO extends PageParam {
 
-    @Schema(description = "矿种", example = "1")
+    @Schema(description = "矿种", example = "2")
     private String mineralType;
 
     @Schema(description = "年份")
-    private String year;
+    private String yearDesc;
 
     @Schema(description = "数据类型", example = "2")
     private Integer dataType;
 
     @Schema(description = "工艺环节")
-    private String procedure;
+    private String procedureDesc;
 
     @Schema(description = "国家/地区")
     private String countryState;
