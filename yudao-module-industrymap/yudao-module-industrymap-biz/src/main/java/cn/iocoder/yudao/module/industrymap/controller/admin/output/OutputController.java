@@ -103,7 +103,7 @@ public class OutputController {
     @PreAuthorize("@ss.hasPermission('industrymap:output:import')")
     public CommonResult<ExcelImportRespVO> importExcel(@RequestParam("file") MultipartFile file,
                                                       @RequestParam(value = "updateSupport", required = false, defaultValue = "false") Boolean updateSupport) throws Exception {
-        List<OutputImportExcelVO> list = ExcelUtils.read(file, OutputImportExcelVO.class);
+        List<OutputImportExcelVO> list = ExcelUtils.read(file, OutputImportExcelVO.class,2);
         return success(outputService.importExcelList(list, updateSupport));
     }
 }

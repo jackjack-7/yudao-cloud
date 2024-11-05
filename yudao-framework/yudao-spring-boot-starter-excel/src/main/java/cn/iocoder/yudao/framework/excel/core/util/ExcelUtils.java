@@ -50,4 +50,11 @@ public class ExcelUtils {
                 .doReadAllSync();
     }
 
+    //rowNumber指定从第几行开始读取数据开始转化
+    public static <T> List<T> read(MultipartFile file, Class<T> head,int rowNumber) throws IOException {
+        return EasyExcel.read(file.getInputStream(), head, null).headRowNumber(rowNumber)
+                .autoCloseStream(false)  // 不要自动关闭，交给 Servlet 自己处理
+                .doReadAllSync();
+    }
+
 }
